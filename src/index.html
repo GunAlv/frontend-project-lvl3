@@ -19,11 +19,18 @@
             Начните читать RSS сегодня! Это легко, это красиво.
           </p>
 
-          <form action="#" class="text-body">
+          <form action="#" class="text-body" data-form="rss">
             <div class="row">
               <div class="col">
                 <div class="input-group input-group-lg mb-3">
-                  <input type="text" class="form-control" placeholder="Ссылка RSS" aria-label="Ссылка RSS" aria-describedby="basic-addon2">
+                  <input
+                    type="text"
+                    name="text"
+                    class="form-control"
+                    placeholder="Ссылка RSS" 
+                    aria-label="Ссылка RSS" 
+                    aria-describedby="basic-addon2"
+                  >
                 </div>
               </div>
 
@@ -34,6 +41,8 @@
           </form>
 
           <p class="mt-2 mb-0 text-muted">Пример: https://ru.hexlet.io/lessons.rss</p>
+
+          <p class="mb-0 position-absolute small" data-form="rss-status"></p>
         </div>
       </div>
     </section>
