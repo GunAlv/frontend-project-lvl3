@@ -7,6 +7,9 @@
     "dev": "cross-env NODE_ENV=development webpack serve --progress --hot --open",
     "build": "npm run clean-dist-dir && cross-env NODE_ENV=production webpack",
     "clean-dist-dir": "rm -rf dist",
+    "lint": "npx eslint --ext .js .",
+    "lint:fix": "npx eslint --fix --ext .js .",
+    "prebuild": "npm run lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +29,9 @@
     "autoprefixer": "10.4.5",
     "babel-loader": "8.2.5",
     "css-loader": "6.7.1",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "html-webpack-plugin": "5.5.0",
     "postcss-loader": "7.0.0",
     "sass": "1.52.2",

@@ -4,7 +4,7 @@ import 'bootstrap';
 
 import './style.scss';
 
-const foo = () => new Promise(resolve => {
+const foo = () => new Promise((resolve) => {
   setTimeout(() => {
     resolve('Promise is resolved');
   }, 1000);

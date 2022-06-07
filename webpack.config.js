@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const path = require('path');
 const distPath = path.resolve(__dirname, 'dist');
 
