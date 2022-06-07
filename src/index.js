@@ -1,8 +1,7 @@
 import 'core-js/stable';
 
-import 'bootstrap';
-
 import './style.scss';
+import 'bootstrap';
 
 const foo = () => new Promise((resolve) => {
   setTimeout(() => {
