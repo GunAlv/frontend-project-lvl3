@@ -5,9 +5,38 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Webpack setup</title>
+  <title>RSS</title>
 </head>
-<body>
-  Webpack setup
+<body class="d-flex flex-column min-vh-100">
+  <main class="flex-grow-1">
+    <section class="container-fluid bg-dark p-5">
+      <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto text-white">
+          <h1 class="display-3 mb-0">
+            RSS агрегатор
+          </h1> 
+          <p class="lead">
+            Начните читать RSS сегодня! Это легко, это красиво.
+          </p>
+
+          <form action="#" class="text-body">
+            <div class="row">
+              <div class="col">
+                <div class="input-group input-group-lg mb-3">
+                  <input type="text" class="form-control" placeholder="Ссылка RSS" aria-label="Ссылка RSS" aria-describedby="basic-addon2">
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <button class="btn btn-lg btn-primary" type="submit">Добавить</button>
+              </div>
+            </div>
+          </form>
+
+          <p class="mt-2 mb-0 text-muted">Пример: https://ru.hexlet.io/lessons.rss</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
