@@ -7,7 +7,7 @@ export default class Controller {
     this.formNode = formNode;
   }
 
-  init() {
+  init(i18nInstance) {
     this.formNode.addEventListener('submit', (event) => {
       event.preventDefault();
 
@@ -16,7 +16,7 @@ export default class Controller {
 
       this.model.setText(text);
 
-      return validate(this.model.getData())
+      return validate(this.model.getData(), i18nInstance)
         .then((schema) => {
           console.log(schema);
 
