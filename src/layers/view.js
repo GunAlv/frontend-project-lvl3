@@ -2,10 +2,10 @@ export default class View {
   constructor({
     formNode,
     statusNode,
-    textInputNode,
+    urlInputNode,
   }) {
     this.formNode = formNode;
-    this.textInputNode = textInputNode;
+    this.urlInputNode = urlInputNode;
     this.statusNode = statusNode;
 
     this.init();
@@ -14,11 +14,11 @@ export default class View {
   resetForm() {
     this.clearStatus();
     this.formNode.reset();
-    this.textInputNode.focus();
+    this.urlInputNode.focus();
   }
 
   clearStatus() {
-    this.textInputNode.classList.remove('is-invalid');
+    this.urlInputNode.classList.remove('is-invalid');
     this.statusNode.classList.remove('text-danger', 'text-success');
 
     // eslint-disable-next-line no-param-reassign
@@ -26,7 +26,7 @@ export default class View {
   }
 
   setErrorStatus(message) {
-    this.textInputNode.classList.add('is-invalid');
+    this.urlInputNode.classList.add('is-invalid');
     this.statusNode.classList.add('text-danger');
 
     // eslint-disable-next-line no-param-reassign
@@ -34,6 +34,6 @@ export default class View {
   }
 
   init() {
-    this.textInputNode.focus();
+    this.urlInputNode.focus();
   }
 }

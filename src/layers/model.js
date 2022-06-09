@@ -11,8 +11,8 @@ export default class Model {
     return this.state.data;
   }
 
-  setText(text) {
-    this.state.data.text = text;
+  setUrl(url) {
+    this.state.data.url = url;
   }
 
   setValidState({ isValid }) {
@@ -27,7 +27,7 @@ export default class Model {
     this.state = onChange({
       isValid: false,
       data: {
-        text: null,
+        url: null,
       },
       error: null,
     }, (path, value) => {
