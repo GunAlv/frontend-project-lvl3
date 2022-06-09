@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { uniqueId } from 'lodash';
+
 import { validate } from '../validate';
 import { parse } from '../parser';
 import { getProxiedUrl } from '../get-proxied-url';
@@ -27,9 +29,18 @@ export default class Controller {
 
           return axios.get(getProxiedUrl(url))
             .then(({ data: { contents } }) => {
-              const result = parse(contents);
+              const { title, description, posts } = parse(contents);
 
-              console.log(result);
+              const feedId = Number(uniqueId());
+
+              this.model.setFeed({ title, description, id: feedId });
+
+              const modifiedPosts = posts.map((post) => ({
+                ...post,
+                id: Number(uniqueId()),
+                feedId,
+              }));
+              this.model.setPosts(modifiedPosts);
             });
           // this potential error will be handled below
         })

@@ -23,6 +23,14 @@ export default class Model {
     this.state.error = message;
   }
 
+  setPosts(posts) {
+    this.state.posts = [...posts, ...this.state.posts];
+  }
+
+  setFeed(feed) {
+    this.state.feeds = [feed, ...this.state.feeds];
+  }
+
   init() {
     this.state = onChange({
       isValid: false,
@@ -30,6 +38,8 @@ export default class Model {
         url: null,
       },
       error: null,
+      posts: [],
+      feeds: [],
     }, (path, value) => {
       if (path === 'error') {
         if (value) {
@@ -37,6 +47,14 @@ export default class Model {
 
           return;
         }
+      }
+
+      if (path === 'posts') {
+        this.view.renderPosts(value);
+      }
+
+      if (path === 'feeds') {
+        this.view.renderFeeds(value);
       }
 
       this.view.resetForm();
