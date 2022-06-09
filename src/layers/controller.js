@@ -1,4 +1,4 @@
-import validate from './validate';
+import validate from '../validate';
 
 export default class Controller {
   constructor(model, { formNode }) {
