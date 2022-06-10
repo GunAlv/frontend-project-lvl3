@@ -19,6 +19,10 @@ export default class Model {
     this.state.isValid = isValid;
   }
 
+  setFetchingState({ isFetching }) {
+    this.state.isFetching = isFetching;
+  }
+
   setErrorMessage(message) {
     this.state.error = message;
   }
@@ -34,6 +38,7 @@ export default class Model {
   init() {
     this.state = onChange({
       isValid: false,
+      isFetching: false,
       data: {
         url: null,
       },
@@ -55,6 +60,10 @@ export default class Model {
 
       if (path === 'feeds') {
         this.view.renderFeeds(value);
+      }
+
+      if (path === 'isFetching') {
+        this.view.changeControlsState({ isDisabled: value });
       }
 
       this.view.resetForm();

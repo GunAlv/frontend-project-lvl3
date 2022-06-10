@@ -3,11 +3,13 @@ export default class View {
     formNode,
     statusNode,
     urlInputNode,
+    submitBtnNode,
     postsContainerNode,
     feedsContainerNode,
   }) {
     this.formNode = formNode;
     this.urlInputNode = urlInputNode;
+    this.submitBtnNode = submitBtnNode;
     this.statusNode = statusNode;
 
     this.postsContainerNode = postsContainerNode;
@@ -36,6 +38,11 @@ export default class View {
 
     // eslint-disable-next-line no-param-reassign
     this.statusNode.textContent = message;
+  }
+
+  changeControlsState({ isDisabled }) {
+    this.submitBtnNode.disabled = isDisabled;
+    this.urlInputNode.disabled = isDisabled;
   }
 
   createPreviewButton() {

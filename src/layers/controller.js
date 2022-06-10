@@ -24,6 +24,7 @@ export default class Controller {
 
       return validate(this.model.getData(), i18nInstance)
         .then(() => {
+          this.model.setFetchingState({ isFetching: true });
           this.model.setValidState({ isValid: true });
           this.model.setErrorMessage(null);
 
@@ -41,10 +42,13 @@ export default class Controller {
                 feedId,
               }));
               this.model.setPosts(modifiedPosts);
+
+              this.model.setFetchingState({ isFetching: false });
             });
           // this potential error will be handled below
         })
         .catch((error) => {
+          this.model.setFetchingState({ isFetching: false });
           this.model.setValidState({ isValid: false });
           this.model.setErrorMessage(error.message);
         });
