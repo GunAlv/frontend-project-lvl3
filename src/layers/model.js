@@ -11,10 +11,10 @@ export default class Model {
     return this.state.data;
   }
 
-  setUrl(url) {
-    this.state.data.url = url;
+  setUrl(newUrl) {
+    this.state.data.url = newUrl;
 
-    this.state.data.urls.push(url);
+    this.state.data.urls.push(newUrl);
   }
 
   setValidState({ isValid }) {

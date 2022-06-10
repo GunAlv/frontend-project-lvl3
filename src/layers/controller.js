@@ -3,7 +3,7 @@ import axios from 'axios';
 import { uniqueId } from 'lodash';
 
 import { validate } from '../validate';
-import { parse } from '../parser';
+import { parse, ParserError } from '../parser';
 import { getProxiedUrl } from '../get-proxied-url';
 
 import { TRANSLATE_KEY } from '../constants';
@@ -31,9 +31,8 @@ export default class Controller {
 
       return validate(this.model.getData(), i18nInstance)
         .then(() => axios.get(getProxiedUrl(url)))
-        .then(({ data: { contents } }) => {
-          const { title, description, posts } = parse(contents);
-
+        .then(({ data: { contents } }) => parse(contents))
+        .then(({ title, description, posts }) => {
           const feedId = Number(uniqueId());
 
           this.model.setFeed({ title, description, id: feedId });
@@ -43,15 +42,19 @@ export default class Controller {
             id: Number(uniqueId()),
             feedId,
           }));
-          this.model.setPosts(modifiedPosts);
 
+          this.model.setPosts(modifiedPosts);
           this.model.setFetchingState({ isFetching: false });
           this.model.setSuccessMessage(i18nInstance.t(TRANSLATE_KEY.RSS_FETCH_SUCCESS));
         })
         .catch((error) => {
+          const errorMessage = error instanceof ParserError
+            ? i18nInstance.t(TRANSLATE_KEY.PARSING_ERROR)
+            : error.message;
+
           this.model.setFetchingState({ isFetching: false });
           this.model.setValidState({ isValid: false });
-          this.model.setErrorMessage(error.message);
+          this.model.setErrorMessage(errorMessage);
         });
     });
   }
