@@ -13,6 +13,8 @@ export default class Model {
 
   setUrl(url) {
     this.state.data.url = url;
+
+    this.state.data.urls.push(url);
   }
 
   setValidState({ isValid }) {
@@ -25,6 +27,10 @@ export default class Model {
 
   setErrorMessage(message) {
     this.state.error = message;
+  }
+
+  setSuccessMessage(message) {
+    this.state.success = message;
   }
 
   setPosts(posts) {
@@ -41,11 +47,21 @@ export default class Model {
       isFetching: false,
       data: {
         url: null,
+        urls: [],
       },
       error: null,
+      success: null,
       posts: [],
       feeds: [],
     }, (path, value) => {
+      if (path === 'success') {
+        if (value) {
+          this.view.setSuccessStatus(value);
+
+          return;
+        }
+      }
+
       if (path === 'error') {
         if (value) {
           this.view.setErrorStatus(value);

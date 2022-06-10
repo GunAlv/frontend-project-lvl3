@@ -6,6 +6,8 @@ import { validate } from '../validate';
 import { parse } from '../parser';
 import { getProxiedUrl } from '../get-proxied-url';
 
+import { TRANSLATE_KEY } from '../constants';
+
 export default class Controller {
   constructor(model, { formNode }) {
     this.model = model;
@@ -22,30 +24,29 @@ export default class Controller {
 
       this.model.setUrl(url);
 
+      this.model.setFetchingState({ isFetching: true });
+      this.model.setValidState({ isValid: true });
+      this.model.setErrorMessage(null);
+      this.model.setSuccessMessage(null);
+
       return validate(this.model.getData(), i18nInstance)
-        .then(() => {
-          this.model.setFetchingState({ isFetching: true });
-          this.model.setValidState({ isValid: true });
-          this.model.setErrorMessage(null);
+        .then(() => axios.get(getProxiedUrl(url)))
+        .then(({ data: { contents } }) => {
+          const { title, description, posts } = parse(contents);
 
-          return axios.get(getProxiedUrl(url))
-            .then(({ data: { contents } }) => {
-              const { title, description, posts } = parse(contents);
+          const feedId = Number(uniqueId());
 
-              const feedId = Number(uniqueId());
+          this.model.setFeed({ title, description, id: feedId });
 
-              this.model.setFeed({ title, description, id: feedId });
+          const modifiedPosts = posts.map((post) => ({
+            ...post,
+            id: Number(uniqueId()),
+            feedId,
+          }));
+          this.model.setPosts(modifiedPosts);
 
-              const modifiedPosts = posts.map((post) => ({
-                ...post,
-                id: Number(uniqueId()),
-                feedId,
-              }));
-              this.model.setPosts(modifiedPosts);
-
-              this.model.setFetchingState({ isFetching: false });
-            });
-          // this potential error will be handled below
+          this.model.setFetchingState({ isFetching: false });
+          this.model.setSuccessMessage(i18nInstance.t(TRANSLATE_KEY.RSS_FETCH_SUCCESS));
         })
         .catch((error) => {
           this.model.setFetchingState({ isFetching: false });

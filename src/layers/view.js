@@ -40,6 +40,14 @@ export default class View {
     this.statusNode.textContent = message;
   }
 
+  setSuccessStatus(message) {
+    this.urlInputNode.classList.remove('is-invalid');
+    this.statusNode.classList.add('text-success');
+
+    // eslint-disable-next-line no-param-reassign
+    this.statusNode.textContent = message;
+  }
+
   changeControlsState({ isDisabled }) {
     this.submitBtnNode.disabled = isDisabled;
     this.urlInputNode.disabled = isDisabled;
